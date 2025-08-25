@@ -15,7 +15,7 @@ class CategoryExamSeeder extends Seeder
         
         // Create root category first
         $rootCategory = CategoryExam::create([
-            'name' => 'الامتحانات الرئيسية',
+            'name' => 'الامتحانات الإلكترونية',
         ]);
 
         // Define the structure: main categories and their sub-categories

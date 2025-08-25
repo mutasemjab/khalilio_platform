@@ -20,11 +20,8 @@
                                         <th>{{ __('messages.Name') }}</th>
                                         <th>{{ __('messages.Phone') }}</th>
                                         <th>{{ __('messages.School Name') }}</th>
-                                        <th>{{ __('messages.Arabic Grade') }}</th>
-                                        <th>{{ __('messages.English Grade') }}</th>
-                                        <th>{{ __('messages.Jordan History Grade') }}</th>
-                                        <th>{{ __('messages.Islamic Education Grade') }}</th>
-                                        <th>{{ __('messages.Average') }}</th>
+                                    
+                                        <th>{{ __('messages.field') }}</th>
                                         <th>{{ __('messages.Created At') }}</th>
                                     </tr>
                                 </thead>
@@ -35,39 +32,12 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->phone }}</td>
                                             <td>{{ $user->school_name }}</td>
+                                           
                                             <td>
-                                                @if($user->arabic_grade)
-                                                    <span class="badge badge-primary">{{ $user->arabic_grade }}</span>
+                                                @if($user->field)
+                                                    <strong class="text-primary">{{ $user->field->name_ar }}</strong>
                                                 @else
-                                                    <span class="text-muted">{{ __('messages.Not Set') }}</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($user->english_grade)
-                                                    <span class="badge badge-success">{{ $user->english_grade }}</span>
-                                                @else
-                                                    <span class="text-muted">{{ __('messages.Not Set') }}</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($user->jordan_history_grade)
-                                                    <span class="badge badge-info">{{ $user->jordan_history_grade }}</span>
-                                                @else
-                                                    <span class="text-muted">{{ __('messages.Not Set') }}</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($user->islamic_education_grade)
-                                                    <span class="badge badge-warning">{{ $user->islamic_education_grade }}</span>
-                                                @else
-                                                    <span class="text-muted">{{ __('messages.Not Set') }}</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($user->average)
-                                                    <strong class="text-primary">{{ number_format($user->average, 2) }}</strong>
-                                                @else
-                                                    <span class="text-muted">{{ __('messages.Not Calculated') }}</span>
+                                                    <span class="text-muted">{{ __('messages.Not') }}</span>
                                                 @endif
                                             </td>
                                             <td>{{ $user->created_at->format('Y-m-d H:i') }}</td>

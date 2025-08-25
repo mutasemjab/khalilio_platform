@@ -1,50 +1,51 @@
 <!-- includes/lessons-grid.blade.php -->
 <div class="lessons-grid">
-    @foreach($lessons as $lesson)
-        <div class="lesson-card" data-lesson-id="{{ $lesson->id }}">
+    <?php $__currentLoopData = $lessons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lesson): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="lesson-card" data-lesson-id="<?php echo e($lesson->id); ?>">
             <div class="lesson-thumbnail">
-                @if($lesson->isValidYoutubeUrl())
-                    <img src="{{ $lesson->youtube_thumbnail }}" alt="{{ $lesson->name }}" class="thumbnail-image">
+                <?php if($lesson->isValidYoutubeUrl()): ?>
+                    <img src="<?php echo e($lesson->youtube_thumbnail); ?>" alt="<?php echo e($lesson->name); ?>" class="thumbnail-image">
                     <div class="play-overlay">
                         <i class="fas fa-play"></i>
                     </div>
-                @else
+                <?php else: ?>
                     <div class="invalid-video">
                         <i class="fas fa-exclamation-triangle"></i>
                         <span>رابط غير صحيح</span>
                     </div>
-                @endif
+                <?php endif; ?>
             </div>
             
             <div class="lesson-info">
-                <h3 class="lesson-name">{{ $lesson->name }}</h3>
+                <h3 class="lesson-name"><?php echo e($lesson->name); ?></h3>
                 <div class="lesson-meta">
                   
                     <span class="lesson-date">
                         <i class="fas fa-calendar"></i>
-                        {{ $lesson->formatted_date }}
+                        <?php echo e($lesson->formatted_date); ?>
+
                     </span>
                 </div>
             </div>
             
-            @if($lesson->isValidYoutubeUrl())
+            <?php if($lesson->isValidYoutubeUrl()): ?>
                 <div class="lesson-actions">
                    
-                    <a href="{{ $lesson->watch_url }}" target="_blank" class="btn-lesson-action btn-youtube">
+                    <a href="<?php echo e($lesson->watch_url); ?>" target="_blank" class="btn-lesson-action btn-youtube">
                         <i class="fab fa-youtube"></i>
                         يوتيوب
                     </a>
                 </div>
-            @else
+            <?php else: ?>
                 <div class="lesson-actions">
                     <button class="btn-lesson-action btn-disabled" disabled>
                         <i class="fas fa-times"></i>
                         غير متاح
                     </button>
                 </div>
-            @endif
+            <?php endif; ?>
         </div>
-    @endforeach
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </div>
 
 <!-- Video Modal -->
@@ -101,4 +102,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-</script>
+</script><?php /**PATH C:\xampp\htdocs\platform\resources\views/includes/lessons-grid.blade.php ENDPATH**/ ?>

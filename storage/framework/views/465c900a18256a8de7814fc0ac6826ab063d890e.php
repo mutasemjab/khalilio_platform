@@ -4,14 +4,14 @@
     <p class="welcome-subtitle">حقيبتك التعليمية الشاملة للامتحانات والدروس والملفات</p>
     <div class="user-info">
         <i class="fas fa-user"></i>
-        <span>{{ $userName ?? 'المستخدم' }}</span>
+        <span><?php echo e($userName ?? 'المستخدم'); ?></span>
     </div>
     
     <!-- ADD THIS BUTTON -->
     <div class="dosyat-button-container" style="margin-top: 2rem;">
-        <a href="{{ route('dosyat.index') }}" class="btn-dosyat">
+        <a href="<?php echo e(route('dosyat.index')); ?>" class="btn-dosyat">
             <i class="fas fa-book"></i>
             <span>الدوسيات</span>
         </a>
     </div>
-</div>
+</div><?php /**PATH C:\xampp\htdocs\platform\resources\views/includes/welcome-section.blade.php ENDPATH**/ ?>

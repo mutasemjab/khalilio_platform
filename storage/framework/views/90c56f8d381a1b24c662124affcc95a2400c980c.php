@@ -1,0 +1,1 @@
+<h2 class="section-title"><?php echo e($title); ?></h2><?php /**PATH C:\xampp\htdocs\platform\resources\views/includes/section-title.blade.php ENDPATH**/ ?>
