@@ -25,6 +25,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     // Registration routes
     Route::match(['GET', 'POST'], '/register', [AuthController::class, 'register'])->name('register');
+    Route::match(['GET', 'POST'], '/login', [AuthController::class, 'login'])->name('login');
 
     // Dashboard route - shows main categories after login
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');

@@ -1,11 +1,11 @@
 
 
 <?php $__env->startSection('content'); ?>
-<div id="registrationSection" class="register-form">
+<div id="loginSection" class="register-form">
     <div class="card">
         <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-dark); font-size: 2rem;">
-            <i class="fas fa-user-plus" style="color: var(--primary-color); margin-left: 0.5rem;"></i>
-            إنشاء حساب جديد
+            <i class="fas fa-sign-in-alt" style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+            تسجيل الدخول
         </h2>
 
         <?php if($errors->any()): ?>
@@ -24,17 +24,16 @@
 
             </div>
         <?php endif; ?>
-        
-        <form method="POST" action="<?php echo e(route('register')); ?>" id="registrationForm">
-            <?php echo csrf_field(); ?>
-            <div class="form-group">
-                <label class="form-label">
-                    <i class="fas fa-user"></i> الاسم الكامل
-                </label>
-                <input type="text" name="name" class="form-control" required
-                       placeholder="أدخل اسمك الكامل" value="<?php echo e(old('name')); ?>">
-            </div>
 
+        <?php if(session('success')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('success')); ?>
+
+            </div>
+        <?php endif; ?>
+        
+        <form method="POST" action="<?php echo e(route('login')); ?>" id="loginForm">
+            <?php echo csrf_field(); ?>
             <div class="form-group">
                 <label class="form-label">
                     <i class="fas fa-phone"></i> رقم الهاتف
@@ -47,50 +46,27 @@
                 <small class="form-text text-muted">مثال: 0791234567</small>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">
-                    <i class="fas fa-school"></i> اسم المدرسة
-                </label>
-                <input type="text" name="school_name" class="form-control" required
-                       placeholder="أدخل اسم مدرستك" value="<?php echo e(old('school_name')); ?>">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">
-                    <i class="fas fa-layer-group"></i> المجال الدراسي
-                </label>
-                <select name="field_id" class="form-control" required>
-                    <option value="">اختر المجال الدراسي</option>
-                    <?php $__currentLoopData = $fields; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $field): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($field->id); ?>" <?php echo e(old('field_id') == $field->id ? 'selected' : ''); ?>>
-                            <?php echo e($field->name); ?>
-
-                        </option>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
-            </div>
-
             <button type="submit" class="btn btn-primary">
-                <i class="fas fa-check"></i>
-                إنشاء الحساب
+                <i class="fas fa-sign-in-alt"></i>
+                تسجيل الدخول
             </button>
         </form>
 
-        <!-- Login link section -->
+        <!-- Registration link section -->
         <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e0e0e0;">
             <p style="margin-bottom: 1rem; color: var(--text-muted);">
-                لديك حساب بالفعل؟
+                ليس لديك حساب؟
             </p>
-            <a href="<?php echo e(route('login')); ?>" class="btn btn-outline-primary" style="text-decoration: none;">
-                <i class="fas fa-sign-in-alt"></i>
-                تسجيل الدخول
+            <a href="<?php echo e(route('register')); ?>" class="btn btn-outline-primary" style="text-decoration: none;">
+                <i class="fas fa-user-plus"></i>
+                إنشاء حساب جديد
             </a>
         </div>
     </div>
 </div>
 
 <script>
-document.getElementById('registrationForm').addEventListener('submit', function(e) {
+document.getElementById('loginForm').addEventListener('submit', function(e) {
     const phone = document.querySelector('input[name="phone"]').value;
     const phoneRegex = /^07[0-9]{8}$/;
     
@@ -116,4 +92,4 @@ document.querySelector('input[name="phone"]').addEventListener('input', function
 });
 </script>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.front', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\platform\resources\views/sections/registration.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.front', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\platform\resources\views/sections/login.blade.php ENDPATH**/ ?>

@@ -27,6 +27,9 @@ class AuthController extends Controller
                 'phone.regex' => 'رقم الهاتف يجب أن يكون 10 أرقام ويبدأ بـ 07',
                 'phone.unique' => 'رقم الهاتف مستخدم مسبقاً',
                 'phone.required' => 'رقم الهاتف مطلوب',
+                'name.required' => 'الاسم مطلوب',
+                'school_name.required' => 'اسم المدرسة مطلوب',
+                'field_id.required' => 'المجال الدراسي مطلوب',
             ]);
 
             if ($validator->fails()) {
@@ -45,7 +48,7 @@ class AuthController extends Controller
                 Session::put('user_name', $user->name);
 
                 // Redirect to dashboard after successful registration
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')->with('success', 'تم إنشاء الحساب بنجاح');
 
             } catch (\Exception $e) {
                 return back()->with('error', 'حدث خطأ أثناء إنشاء الحساب')->withInput();
@@ -55,5 +58,49 @@ class AuthController extends Controller
         // GET request - show registration form
         $fields = Field::all();
         return view('sections.registration', compact('fields'));
+    }
+
+    public function login(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $validator = Validator::make($request->all(), [
+                'phone' => 'required|string|regex:/^07[0-9]{8}$/',
+            ], [
+                'phone.regex' => 'رقم الهاتف يجب أن يكون 10 أرقام ويبدأ بـ 07',
+                'phone.required' => 'رقم الهاتف مطلوب',
+            ]);
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+
+            try {
+                // Find user by phone number
+                $user = User::where('phone', $request->phone)->first();
+
+                if (!$user) {
+                    return back()->with('error', 'رقم الهاتف غير مسجل')->withInput();
+                }
+
+                // Login user
+                Session::put('user_id', $user->id);
+                Session::put('user_name', $user->name);
+
+                // Redirect to dashboard after successful login
+                return redirect()->route('dashboard')->with('success', 'تم تسجيل الدخول بنجاح');
+
+            } catch (\Exception $e) {
+                return back()->with('error', 'حدث خطأ أثناء تسجيل الدخول')->withInput();
+            }
+        }
+
+        // GET request - show login form
+        return view('sections.login');
+    }
+
+    public function logout()
+    {
+        Session::flush();
+        return redirect()->route('login')->with('success', 'تم تسجيل الخروج بنجاح');
     }
 }
