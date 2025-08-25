@@ -116,7 +116,7 @@
             <!-- Book 1 -->
             <div class="book-card">
                 <div class="book-image">
-                    <img src="{{ asset('assets_front/images/book1.jpg')  }}" alt="كتاب 1" onerror="this.src='{{ asset('images/default-book.jpg') }}'">
+                    <img src="{{ asset('assets_front/images/book1.jpeg')  }}" alt="كتاب 1" onerror="this.src='{{ asset('images/default-book.jpg') }}'">
                 </div>
                 <div class="book-info">
                     <h3>الثقافة المالية</h3>
@@ -127,7 +127,7 @@
             <!-- Book 2 -->
             <div class="book-card">
                 <div class="book-image">
-                    <img src="{{ asset('assets_front/images/book2.jpg') }}" alt="كتاب 2" onerror="this.src='{{ asset('images/default-book.jpg') }}'">
+                    <img src="{{ asset('assets_front/images/book2.jpeg') }}" alt="كتاب 2" onerror="this.src='{{ asset('images/default-book.jpg') }}'">
                 </div>
                 <div class="book-info">
                     <h3>الإقترانات</h3>
@@ -136,7 +136,7 @@
             </div>
             <div class="book-card">
                 <div class="book-image">
-                    <img src="{{ asset('assets_front/images/book3.jpg') }}" alt="كتاب 2" onerror="this.src='{{ asset('images/default-book.jpg') }}'">
+                    <img src="{{ asset('assets_front/images/book3.jpeg') }}" alt="كتاب 2" onerror="this.src='{{ asset('images/default-book.jpg') }}'">
                 </div>
                 <div class="book-info">
                     <h3>المصفوفات</h3>                 
