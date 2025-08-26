@@ -315,62 +315,65 @@ class ExamController extends Controller
         return $html;
     }
 
-    private function getFallbackAnswerHtml($question, $previousAnswer = null)
-    {
-        $userAnswer = $previousAnswer ? $previousAnswer->user_answer : '';
-        
-        switch ($question->type) {
-            case 'multiple_choice':
-                $options = json_decode($question->options, true) ?: [];
-                $html = '<div class="question-options">';
-                foreach ($options as $index => $option) {
-                    $letter = chr(65 + $index); // A, B, C, D
-                    $checked = ($userAnswer == $option) ? 'checked' : '';
-                    $html .= "
-                        <label class='option-label'>
-                            <input type='radio' name='answer' value='{$option}' class='option-input' {$checked}>
-                            <div class='option-content'>
-                                <span class='option-letter'>{$letter}</span>
-                                <span class='option-text'>{$option}</span>
-                            </div>
-                        </label>
-                    ";
-                }
-                $html .= '</div>';
-                return $html;
-                
-            case 'true_false':
-                $trueChecked = ($userAnswer == 'true') ? 'checked' : '';
-                $falseChecked = ($userAnswer == 'false') ? 'checked' : '';
-                return "
-                    <div class='question-options'>
-                        <label class='option-label'>
-                            <input type='radio' name='answer' value='true' class='option-input' {$trueChecked}>
-                            <div class='option-content'>
-                                <span class='option-letter'>صح</span>
-                                <span class='option-text'>صحيح</span>
-                            </div>
-                        </label>
-                        <label class='option-label'>
-                            <input type='radio' name='answer' value='false' class='option-input' {$falseChecked}>
-                            <div class='option-content'>
-                                <span class='option-letter'>خطأ</span>
-                                <span class='option-text'>خطأ</span>
-                            </div>
-                        </label>
-                    </div>
+   private function getFallbackAnswerHtml($question, $previousAnswer = null)
+{
+    $userAnswer = $previousAnswer ? $previousAnswer->user_answer : '';
+    
+    switch ($question->type) {
+        case 'multiple_choice':
+            // Since options is stored as JSON in database, Laravel automatically casts it to array
+            $options = $question->options ?: [];
+            $html = '<div class="question-options">';
+            foreach ($options as $index => $option) {
+                $letter = chr(65 + $index); // A, B, C, D
+                $checked = ($userAnswer == $option) ? 'checked' : '';
+                $html .= "
+                    <label class='option-label'>
+                        <input type='radio' name='answer' value='" . htmlspecialchars($option) . "' class='option-input' {$checked}>
+                        <div class='option-content'>
+                            <span class='option-letter'>{$letter}</span>
+                            <span class='option-text'>" . htmlspecialchars($option) . "</span>
+                        </div>
+                    </label>
                 ";
-                
-            case 'essay':
-                return "<textarea id='essayAnswer' class='essay-textarea' placeholder='اكتب إجابتك هنا...'>{$userAnswer}</textarea>";
-                
-            case 'fill_blank':
-                return "<input type='text' id='fillBlankAnswer' class='fill-blank-input' value='{$userAnswer}' placeholder='أدخل الإجابة'>";
-                
-            default:
-                return '<p>نوع السؤال غير مدعوم</p>';
-        }
+            }
+            $html .= '</div>';
+            return $html;
+            
+        case 'true_false':
+            $trueChecked = ($userAnswer == 'true') ? 'checked' : '';
+            $falseChecked = ($userAnswer == 'false') ? 'checked' : '';
+            return "
+                <div class='question-options'>
+                    <label class='option-label'>
+                        <input type='radio' name='answer' value='true' class='option-input' {$trueChecked}>
+                        <div class='option-content'>
+                            <span class='option-letter'>صح</span>
+                            <span class='option-text'>صحيح</span>
+                        </div>
+                    </label>
+                    <label class='option-label'>
+                        <input type='radio' name='answer' value='false' class='option-input' {$falseChecked}>
+                        <div class='option-content'>
+                            <span class='option-letter'>خطأ</span>
+                            <span class='option-text'>خطأ</span>
+                        </div>
+                    </label>
+                </div>
+            ";
+            
+        case 'essay':
+            $escapedAnswer = htmlspecialchars($userAnswer);
+            return "<textarea id='essayAnswer' class='essay-textarea' placeholder='اكتب إجابتك هنا...'>{$escapedAnswer}</textarea>";
+            
+        case 'fill_blank':
+            $escapedAnswer = htmlspecialchars($userAnswer);
+            return "<input type='text' id='fillBlankAnswer' class='fill-blank-input' value='{$escapedAnswer}' placeholder='أدخل الإجابة'>";
+            
+        default:
+            return '<p>نوع السؤال غير مدعوم</p>';
     }
+}
 
     private function getQuestionTypeName($type)
     {
