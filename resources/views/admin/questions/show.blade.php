@@ -114,7 +114,7 @@
                                 <div class="mb-3">
                                     <h6>{{ __('messages.question_image') }}:</h6>
                                     <div class="text-center">
-                                        <img src="{{ asset('storage/questions/' . $question->question_image) }}" 
+                                        <img src="{{ asset('assets/admin/uploads/' . $question->question_image) }}" 
                                              alt="Question Image" class="img-fluid rounded border" style="max-height: 400px;">
                                     </div>
                                 </div>

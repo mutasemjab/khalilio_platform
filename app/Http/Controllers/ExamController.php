@@ -260,7 +260,7 @@ class ExamController extends Controller
                     'question_text' => $currentQuestion->question_text,
                     'grade' => $currentQuestion->grade,
                     'question_image' => $currentQuestion->question_image,
-                    'question_image_url' => $currentQuestion->question_image ? asset('storage/' . $currentQuestion->question_image) : null
+                    'question_image_url' => $currentQuestion->question_image ? asset('assets/admin/uploads/' . $currentQuestion->question_image) : null
                 ],
                 'answerHtml' => $answerHtml,
                 'previousAnswer' => $previousAnswer,

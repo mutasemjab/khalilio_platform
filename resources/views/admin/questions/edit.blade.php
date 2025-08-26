@@ -69,7 +69,7 @@
                             <label for="question_image" class="form-label">{{ __('messages.question_image') }}</label>
                             @if($question->question_image)
                                 <div class="mb-2">
-                                    <img src="{{ asset('storage/questions/' . $question->question_image) }}" 
+                                    <img src="{{ asset('assets/admin/uploads/' . $question->question_image) }}" 
                                          alt="Current Image" class="img-thumbnail" style="max-height: 150px;">
                                     <p class="small text-muted">{{ __('messages.current_image') }}</p>
                                 </div>
