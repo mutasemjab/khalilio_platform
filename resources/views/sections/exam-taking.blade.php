@@ -408,6 +408,7 @@ function loadAnswerForQuestion(previousAnswer) {
         // Small delay to ensure DOM is updated
         setTimeout(() => {
             if (questionType === 'multiple_choice' || questionType === 'true_false') {
+                // For multiple choice and true/false, user_answer is stored as the actual value
                 const radio = document.querySelector(`input[value="${answer}"]`);
                 if (radio) {
                     radio.checked = true;
@@ -426,6 +427,35 @@ function loadAnswerForQuestion(previousAnswer) {
         }, 100);
     }
 }
+
+// Update the loadPreviousAnswer function as well
+function loadPreviousAnswer() {
+    @if($previousAnswer && $previousAnswer->user_answer)
+        const answer = @json($previousAnswer->user_answer);
+        const questionType = getCurrentQuestionType();
+        
+        console.log('Loading previous answer:', answer, 'for type:', questionType);
+        
+        if (questionType === 'multiple_choice' || questionType === 'true_false') {
+            // For both multiple choice and true/false, user_answer is now stored as the actual value
+            const radio = document.querySelector(`input[value="${answer}"]`);
+            if (radio) {
+                radio.checked = true;
+            }
+        } else if (questionType === 'essay') {
+            const essayAnswer = document.getElementById('essayAnswer');
+            if (essayAnswer) {
+                essayAnswer.value = answer || '';
+            }
+        } else if (questionType === 'fill_blank') {
+            const fillBlankAnswer = document.getElementById('fillBlankAnswer');
+            if (fillBlankAnswer) {
+                fillBlankAnswer.value = answer || '';
+            }
+        }
+    @endif
+}
+
 
 function getCurrentQuestionType() {
     const questionTypeElement = document.querySelector('.question-type');
@@ -579,29 +609,7 @@ function setupAutoSave() {
     });
 }
 
-function loadPreviousAnswer() {
-    @if($previousAnswer && $previousAnswer->user_answer)
-        const answer = @json($previousAnswer->user_answer);
-        const questionType = getCurrentQuestionType();
-        
-        if (questionType === 'multiple_choice' || questionType === 'true_false') {
-            const radio = document.querySelector(`input[value="${answer}"]`);
-            if (radio) {
-                radio.checked = true;
-            }
-        } else if (questionType === 'essay') {
-            const essayAnswer = document.getElementById('essayAnswer');
-            if (essayAnswer) {
-                essayAnswer.value = answer || '';
-            }
-        } else if (questionType === 'fill_blank') {
-            const fillBlankAnswer = document.getElementById('fillBlankAnswer');
-            if (fillBlankAnswer) {
-                fillBlankAnswer.value = answer || '';
-            }
-        }
-    @endif
-}
+
 
 // ==================== MODAL FUNCTIONS ====================
 

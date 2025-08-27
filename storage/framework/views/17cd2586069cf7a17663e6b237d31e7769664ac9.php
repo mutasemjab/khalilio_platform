@@ -108,6 +108,7 @@
             </div>
         </div>
 
+       
         <?php if($attempt->exam->show_results_immediately): ?>
             <!-- Detailed Results -->
             <div class="detailed-results">
@@ -139,27 +140,31 @@
                                 <?php if($questionAnswer->question->type == 'multiple_choice'): ?>
                                     <div class="user-answer">
                                         <strong>إجابتك:</strong> 
-                                        <?php if($questionAnswer->user_answer !== null): ?>
-                                            <?php echo e($questionAnswer->question->options[$questionAnswer->user_answer] ?? 'غير محدد'); ?>
+                                        <?php if($questionAnswer->user_answer !== null && $questionAnswer->user_answer !== ''): ?>
+                                            <?php echo e($questionAnswer->user_answer); ?>
 
                                         <?php else: ?>
                                             <span class="no-answer">لم تجب على هذا السؤال</span>
                                         <?php endif; ?>
                                     </div>
                                     
-                                    <?php if($questionAnswer->question->correct_answers): ?>
+                                    <?php if($questionAnswer->question->correct_answers && is_array($questionAnswer->question->correct_answers)): ?>
                                         <div class="correct-answer">
                                             <strong>الإجابة الصحيحة:</strong>
                                             <?php $__currentLoopData = $questionAnswer->question->correct_answers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $correctIndex): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <?php echo e($questionAnswer->question->options[$correctIndex] ?? ''); ?>
+                                                <?php if(is_array($questionAnswer->question->options) && isset($questionAnswer->question->options[$correctIndex])): ?>
+                                                    <?php echo e($questionAnswer->question->options[$correctIndex]); ?>
 
+                                                    <?php if(!$loop->last): ?>, <?php endif; ?>
+                                                <?php endif; ?>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
                                     <?php endif; ?>
+                                    
                                 <?php elseif($questionAnswer->question->type == 'true_false'): ?>
                                     <div class="user-answer">
                                         <strong>إجابتك:</strong> 
-                                        <?php if($questionAnswer->user_answer !== null): ?>
+                                        <?php if($questionAnswer->user_answer !== null && $questionAnswer->user_answer !== ''): ?>
                                             <?php echo e($questionAnswer->user_answer == 'true' ? 'صحيح' : 'خطأ'); ?>
 
                                         <?php else: ?>
@@ -167,13 +172,14 @@
                                         <?php endif; ?>
                                     </div>
                                     
-                                    <?php if($questionAnswer->question->correct_answers): ?>
+                                    <?php if($questionAnswer->question->correct_answers && is_array($questionAnswer->question->correct_answers)): ?>
                                         <div class="correct-answer">
                                             <strong>الإجابة الصحيحة:</strong>
                                             <?php echo e($questionAnswer->question->correct_answers[0] == 'true' ? 'صحيح' : 'خطأ'); ?>
 
                                         </div>
                                     <?php endif; ?>
+                                    
                                 <?php else: ?>
                                     <div class="user-answer">
                                         <strong>إجابتك:</strong> 
@@ -184,6 +190,17 @@
                                             <span class="no-answer">لم تجب على هذا السؤال</span>
                                         <?php endif; ?>
                                     </div>
+                                    
+                                    <?php if($questionAnswer->question->correct_answers && is_array($questionAnswer->question->correct_answers)): ?>
+                                        <div class="correct-answer">
+                                            <strong>الإجابة الصحيحة:</strong>
+                                            <?php $__currentLoopData = $questionAnswer->question->correct_answers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $correctAnswer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php echo e($correctAnswer); ?>
+
+                                                <?php if(!$loop->last): ?>, <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </div>
+                                    <?php endif; ?>
                                 <?php endif; ?>
 
                                 <?php if($questionAnswer->question->explanation): ?>

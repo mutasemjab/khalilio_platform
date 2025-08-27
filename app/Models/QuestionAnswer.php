@@ -12,7 +12,7 @@ class QuestionAnswer extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'user_answer' => 'array',
+        'user_answer' => 'json',
         'awarded_grade' => 'decimal:2',
         'is_correct' => 'boolean',
         'answered_at' => 'datetime'

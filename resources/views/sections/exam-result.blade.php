@@ -107,6 +107,7 @@
             </div>
         </div>
 
+       {{-- Update the detailed results section in exam-result.blade.php --}}
         @if($attempt->exam->show_results_immediately)
             <!-- Detailed Results -->
             <div class="detailed-results">
@@ -137,37 +138,42 @@
                                 @if($questionAnswer->question->type == 'multiple_choice')
                                     <div class="user-answer">
                                         <strong>إجابتك:</strong> 
-                                        @if($questionAnswer->user_answer !== null)
-                                            {{ $questionAnswer->question->options[$questionAnswer->user_answer] ?? 'غير محدد' }}
+                                        @if($questionAnswer->user_answer !== null && $questionAnswer->user_answer !== '')
+                                            {{ $questionAnswer->user_answer }}
                                         @else
                                             <span class="no-answer">لم تجب على هذا السؤال</span>
                                         @endif
                                     </div>
                                     
-                                    @if($questionAnswer->question->correct_answers)
+                                    @if($questionAnswer->question->correct_answers && is_array($questionAnswer->question->correct_answers))
                                         <div class="correct-answer">
                                             <strong>الإجابة الصحيحة:</strong>
                                             @foreach($questionAnswer->question->correct_answers as $correctIndex)
-                                                {{ $questionAnswer->question->options[$correctIndex] ?? '' }}
+                                                @if(is_array($questionAnswer->question->options) && isset($questionAnswer->question->options[$correctIndex]))
+                                                    {{ $questionAnswer->question->options[$correctIndex] }}
+                                                    @if(!$loop->last), @endif
+                                                @endif
                                             @endforeach
                                         </div>
                                     @endif
+                                    
                                 @elseif($questionAnswer->question->type == 'true_false')
                                     <div class="user-answer">
                                         <strong>إجابتك:</strong> 
-                                        @if($questionAnswer->user_answer !== null)
+                                        @if($questionAnswer->user_answer !== null && $questionAnswer->user_answer !== '')
                                             {{ $questionAnswer->user_answer == 'true' ? 'صحيح' : 'خطأ' }}
                                         @else
                                             <span class="no-answer">لم تجب على هذا السؤال</span>
                                         @endif
                                     </div>
                                     
-                                    @if($questionAnswer->question->correct_answers)
+                                    @if($questionAnswer->question->correct_answers && is_array($questionAnswer->question->correct_answers))
                                         <div class="correct-answer">
                                             <strong>الإجابة الصحيحة:</strong>
                                             {{ $questionAnswer->question->correct_answers[0] == 'true' ? 'صحيح' : 'خطأ' }}
                                         </div>
                                     @endif
+                                    
                                 @else
                                     <div class="user-answer">
                                         <strong>إجابتك:</strong> 
@@ -177,6 +183,16 @@
                                             <span class="no-answer">لم تجب على هذا السؤال</span>
                                         @endif
                                     </div>
+                                    
+                                    @if($questionAnswer->question->correct_answers && is_array($questionAnswer->question->correct_answers))
+                                        <div class="correct-answer">
+                                            <strong>الإجابة الصحيحة:</strong>
+                                            @foreach($questionAnswer->question->correct_answers as $correctAnswer)
+                                                {{ $correctAnswer }}
+                                                @if(!$loop->last), @endif
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 @endif
 
                                 @if($questionAnswer->question->explanation)

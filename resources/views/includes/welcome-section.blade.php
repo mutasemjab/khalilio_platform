@@ -5,6 +5,10 @@
     <div class="user-info">
         <i class="fas fa-user"></i>
         <span>{{ $userName ?? 'المستخدم' }}</span>
+        <a href="{{ route('user.exam-history') }}" style="text-decoration: none; color:white;">
+            <i class="fas fa-chart-line"></i>
+            <span>نتائج امتحاناتي </span>
+        </a>
     </div>
     
     <!-- ADD THIS BUTTON -->

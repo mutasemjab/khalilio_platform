@@ -80,6 +80,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/dosyat/maktabat', [DosyatController::class, 'getMaktabat'])->name('dosyat.maktabat');
     Route::get('/dosyat/delivery', [DosyatController::class, 'getDelivery'])->name('dosyat.delivery');
 
+    Route::get('/user/exam-history', [ExamController::class, 'userExamHistory'])->name('user.exam-history');
+    
     // Logout route - clears session and redirects to home
     Route::get('/logout', function () {
         session()->flush();
