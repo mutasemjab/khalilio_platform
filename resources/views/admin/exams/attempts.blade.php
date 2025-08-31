@@ -217,11 +217,11 @@
                                                  --}}
                                              
 
-                                                <button class="btn btn-primary" 
+                                                {{-- <button class="btn btn-primary" 
                                                         onclick="viewAttemptDetails({{ $attempt->id }})"
                                                         title="{{ __('messages.view_details') }}">
                                                     <i class="fas fa-info"></i>
-                                                </button>
+                                                </button> --}}
 
                                                 @if($exam->questions()->where('type', 'essay')->exists())
                                                     <a href="{{ route('exam.grade-essays', $attempt) }}" 
@@ -230,11 +230,11 @@
                                                     </a>
                                                 @endif
 
-                                                <button class="btn btn-outline-danger" 
+                                                {{-- <button class="btn btn-outline-danger" 
                                                         onclick="deleteAttempt({{ $attempt->id }})"
                                                         title="{{ __('messages.delete_attempt') }}">
                                                     <i class="fas fa-trash"></i>
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         </td>
                                     </tr>

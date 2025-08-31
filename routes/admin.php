@@ -78,7 +78,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('exam-attempts/{attempt}/details', [ExamController::class, 'attemptDetails'])->name('exam-attempts.details');
         Route::delete('exam-attempts/{attempt}', [ExamController::class, 'deleteAttempt'])->name('exam-attempts.delete');
         Route::get('exams/{exam}/export-attempts', [ExamController::class, 'exportAttempts'])->name('exams.export-attempts');
-        Route::get('exams/results', [ExamController::class, 'results'])->name('exams.results');
 
         // Essay Grading Routes
         Route::get('exam-attempts/{attempt}/grade-essays', [ExamController::class, 'gradeEssays'])->name('exam.grade-essays');
