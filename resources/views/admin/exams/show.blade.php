@@ -226,16 +226,7 @@
                         @endif
                     </div>
 
-                    @if(Auth::check() && $exam->canUserAttempt(Auth::id()))
-                        <div class="mt-4 text-center">
-                            <form action="{{ route('exam.take', $exam) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-success btn-lg">
-                                    <i class="fas fa-play"></i> {{ __('messages.take_exam') }}
-                                </button>
-                            </form>
-                        </div>
-                    @endif
+                
                 </div>
             </div>
         </div>

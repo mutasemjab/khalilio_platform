@@ -208,19 +208,14 @@
                                         <!-- Actions -->
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group">
-                                                @if($attempt->status === 'completed')
+                                                {{-- @if($attempt->status === 'completed')
                                                     <a href="{{ route('exam.results', $attempt) }}" 
                                                        class="btn btn-info" title="{{ __('messages.view_results') }}">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 @endif
-                                                
-                                                @if($attempt->status === 'in_progress')
-                                                    <a href="{{ route('exam.attempt', $attempt) }}" 
-                                                       class="btn btn-warning" title="{{ __('messages.continue_exam') }}">
-                                                        <i class="fas fa-play"></i>
-                                                    </a>
-                                                @endif
+                                                 --}}
+                                             
 
                                                 <button class="btn btn-primary" 
                                                         onclick="viewAttemptDetails({{ $attempt->id }})"
