@@ -63,9 +63,7 @@
                                         <p class="mt-2">
                                             <strong>{{ __('messages.video_id') }}:</strong> {{ $lesson->getYoutubeIdAttribute() }}
                                         </p>
-                                        <a href="{{ route('lessons.watch', $lesson) }}" target="_blank" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-play"></i> {{ __('messages.watch_current') }}
-                                        </a>
+                                        
                                     </div>
                                 </div>
                             </div>
